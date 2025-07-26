@@ -14,7 +14,7 @@ export default function SignupForm() {
   });
 
   const navigate = useNavigate();
-  const {serverUrl}=useContext(userDataContext)
+  const {serverUrl,userData,setUserData}=useContext(userDataContext)
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -32,10 +32,11 @@ export default function SignupForm() {
     setMessage("");
     try {
       const res = await axios.post(`${serverUrl}/api/auth/signup`, formData,{withCredentials:true});
-      console.log(res);
+      setUserData(res.data);
       setMessage(" Signup successful!");
       setLoading(false);
       setFormData({ name: "", email: "", password: "" });
+      navigate("/customize");
     } catch (err) {
       setMessage("✅  Signup failed. Try again.");
       setLoading(false);

@@ -12,7 +12,7 @@ export default function SignIn() {
   });
 
   const navigate = useNavigate();
-  const { serverUrl } = useContext(userDataContext);
+  const { serverUrl,userData,setUserData } = useContext(userDataContext);
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ export default function SignIn() {
     setMessage("");
     try {
       const res = await axios.post(`${serverUrl}/api/auth/signin`, formData, { withCredentials: true });
-      console.log(res);
+      setUserData(res.data);
 
       setMessage("✅ Login successful!");
       setLoading(false);
@@ -40,6 +40,7 @@ export default function SignIn() {
       // navigate("/dashboard"); // example route
     } catch (err) {
       setMessage("❌ Login failed. Try again.");
+      setUserData(null);
       setLoading(false);
     }
   };
