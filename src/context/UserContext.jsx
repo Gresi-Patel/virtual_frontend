@@ -5,6 +5,9 @@ export const userDataContext = createContext()
 function UserContext({ children }) {
     const serverUrl = "http://localhost:8000"
     const [userData,setUserData] = useState(null);
+    const [frontendImage, setFrontedImage] = useState(null)
+        const [backendImage, setbackendImage] = useState(null)
+        const [selectedImage, setSelectedImage] = useState(null)
 
     const handleCurrentUser = async ()=>{
         try {
@@ -24,7 +27,7 @@ function UserContext({ children }) {
 
 
     const value = {
-        serverUrl,userData,setUserData
+        serverUrl,userData,setUserData,frontendImage, setFrontedImage,backendImage, setbackendImage,selectedImage, setSelectedImage
     }
     return (
         <div>
